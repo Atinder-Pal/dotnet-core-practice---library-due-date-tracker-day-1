@@ -7,38 +7,38 @@ namespace LibraryDueDateDay1.Models
 {
     public class Book
     {
-        //private DateTime _dueDate;
-        //private DateTime? _returnedDate;
+        private DateTime _dueDate;
+        private DateTime? _returnedDate;
         public int ID { get; }
         public string Title { get; }
         public string Author { get; }
         public DateTime PublicationDate { get; }
         public DateTime CheckedOutDate { get; }
 
-        public DateTime DueDate { get; set; }
-        public DateTime? ReturnedDate { get; set; }
-        //public DateTime DueDate 
-        //{
-        //    get
-        //    {
-        //        return _dueDate;
-        //    }
-        //    set
-        //    {
-        //        _dueDate = DueDate;
-        //    }
-        //}
-        //public DateTime? ReturnedDate
-        //{
-        //    get
-        //    {
-        //        return _returnedDate;
-        //    }
-        //    set
-        //    {
-        //       _returnedDate = ReturnedDate; 
-        //    }
-        //}
+        //public DateTime DueDate { get; set; }
+        //public DateTime? ReturnedDate { get; set; }
+        public DateTime DueDate
+        {
+            get
+            {
+                return _dueDate;
+            }
+            set
+            {
+                _dueDate = value;
+            }
+        }
+        public DateTime? ReturnedDate
+        {
+            get
+            {
+                return _returnedDate;
+            }
+            set
+            {
+                _returnedDate = value;
+            }
+        }
 
         public Book(int id, string title, string author, DateTime publicationDate, DateTime checkedOutDate)
         {
