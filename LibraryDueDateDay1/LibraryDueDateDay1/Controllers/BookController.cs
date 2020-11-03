@@ -92,7 +92,7 @@ namespace LibraryDueDateDay1.Controllers
             GetBookByID(id).DueDate = GetBookByID(id).DueDate.AddDays(7);
         }
 
-        public void ReturnBookByID(int id)
+        public void ReturnBookByID(string id)
         {
             GetBookByID(id).ReturnedDate = DateTime.Now;
         }
