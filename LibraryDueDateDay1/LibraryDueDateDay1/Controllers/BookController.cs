@@ -9,23 +9,23 @@ namespace LibraryDueDateDay1.Controllers
 {
     public class BookController : Controller
     {
+        public static List<Book> Books = new List<Book>();
         public IActionResult Index()
         {
             return RedirectToAction("List");
         }
 
-        public IActionResult Create(int id, string title, string author, DateTime publicationDate, DateTime checkedOutDate)
+        public IActionResult Create(string id, string title, string author, string publicationDate, string checkedOutDate)
         {
             try
             {
-                CreateBook(id, title, author, publicationDate, checkedOutDate);
+                Book createdBook = CreateBook(int.Parse(id), title, author, DateTime.Parse(publicationDate), DateTime.Parse(checkedOutDate));
+                ViewBag.addMessage = $"You have successfully checked out {createdBook.Title} until {createdBook.DueDate}.";
             }
             catch(Exception e)
             {
-                ViewBag.addMessage = $"Unable to check out book:{e.Message}";
-            }
-            ViewBag.addMessage = $"You have successfully checked out {title} until {checkedOutDate.AddDays(14)}.";
-            
+                ViewBag.addMessage = $"Unable to check out book: {e.Message}";
+            }           
             return View();
         }
 
@@ -35,25 +35,62 @@ namespace LibraryDueDateDay1.Controllers
             return View();
         }
 
-        public IActionResult Details()
+        public IActionResult Details(string id, string op)
         {
-            return View();
-        }
-
-        public static List<Book> Books = new List<Book>();
-
-        public void CreateBook(int id, string title, string author, DateTime publicationDate, DateTime checkedOutDate)
-        {           
-            if (Books.Where(book => book.ID == id).ToList().Count == 0)
+            if (Books.Any(x => x.ID == int.Parse(id.Trim()) == false))
             {
-                var newBook = new Book(id, title, author, publicationDate, checkedOutDate);
-                Books.Add(newBook);
+                ViewBag.errorMessage = "No book selected.";
             }
             else
             {
-                throw new Exception("ID already exists. Try adding it witha new ID");
+                if(id != null && op == "extend")
+                {
+                    ExtendDueDateForBookByID(int.Parse(id));
+                }
+                if (id != null && op == "return")
+                {
+                    ReturnBookByID(int.Parse(id));
+                }
+                if (id != null && op == "delete")
+                {
+                    DeleteBookByID(int.Parse(id));
+                }
+
+                ViewBag.bookDetails = GetBookById(int.Parse(id));
+            }   
+            return View();
+        }
+        
+        public Book CreateBook(int id, string title, string author, DateTime publicationDate, DateTime checkedOutDate)
+        {           
+            if (! Books.Any(book => book.ID == id))
+            {
+                var newBook = new Book(id, title, author, publicationDate, checkedOutDate);
+                Books.Add(newBook);
+                return newBook;
             }
-            
+            else
+            {
+                throw new Exception("ID already exists. Try adding it with a new ID");
+            }            
+        }
+        public Book GetBookById(int id)            
+        {
+            return Books.Where(x => x.ID == id).SingleOrDefault();
+        }
+        public void ExtendDueDateForBookByID(int id)
+        {
+            GetBookById(id).DueDate = DateTime.Now.AddDays(7);
+        }
+
+        public void ReturnBookByID(int id)
+        {
+            GetBookById(id).ReturnedDate = DateTime.Now;
+        }
+
+        public void DeleteBookByID(int id)
+        {
+            Books.Remove(GetBookById(id));
         }
     }
 }

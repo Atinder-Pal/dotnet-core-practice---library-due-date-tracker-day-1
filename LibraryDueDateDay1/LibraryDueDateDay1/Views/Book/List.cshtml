@@ -9,7 +9,7 @@
     <ul>
         @foreach (Book book in ViewBag.list)
         {
-            <li>@(book.ID) @(book.Title)</li>
+            <li><a href="/Book/Details?id=@(book.ID)">@(book.Title) by @(book.Author)</a></li>
         }
     </ul>
 }
