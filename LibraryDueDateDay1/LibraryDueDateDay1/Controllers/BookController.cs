@@ -37,7 +37,7 @@ namespace LibraryDueDateDay1.Controllers
 
         public IActionResult Details(string id, string op)
         {
-            if (Books.Any(x => x.ID == int.Parse(id.Trim()) == false))
+            if(Books.Any(x => x.ID == int.Parse(id.Trim())) == false)
             {
                 ViewBag.errorMessage = "No book selected.";
             }
@@ -56,7 +56,7 @@ namespace LibraryDueDateDay1.Controllers
                     DeleteBookByID(int.Parse(id));
                 }
 
-                ViewBag.bookDetails = GetBookById(int.Parse(id));
+                ViewBag.bookDetails = GetBookById(int.Parse(id.Trim()));
             }   
             return View();
         }
