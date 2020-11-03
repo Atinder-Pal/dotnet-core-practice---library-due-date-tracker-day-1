@@ -69,11 +69,12 @@ namespace LibraryDueDateDay1.Controllers
             return View();
         }
         
-        public Book CreateBook(int id, string title, string author, DateTime publicationDate, DateTime checkedOutDate)
-        {           
-            if (! Books.Any(book => book.ID == id))
+        public Book CreateBook(string id, string title, string author, string publicationDate, string checkedOutDate)
+        {
+            int parsedID = int.Parse(id);
+            if (!Books.Exists(x => x.ID == parsedID))
             {
-                var newBook = new Book(id, title, author, publicationDate, checkedOutDate);
+                var newBook = new Book(parsedID, title.Trim(), author.Trim(), DateTime.Parse(publicationDate), DateTime.Parse(checkedOutDate));
                 Books.Add(newBook);
                 return newBook;
             }
