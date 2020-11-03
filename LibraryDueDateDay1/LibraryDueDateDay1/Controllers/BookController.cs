@@ -60,6 +60,11 @@ namespace LibraryDueDateDay1.Controllers
                 }
 
                 ViewBag.bookDetails = GetBookById(int.Parse(id.Trim()));
+                if(ViewBag.bookDetails == null)
+                {
+                    ViewBag.errorMessage = "No book selected.";                    
+                }
+                    
             }   
             return View();
         }
