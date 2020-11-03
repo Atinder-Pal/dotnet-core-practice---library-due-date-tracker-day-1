@@ -21,7 +21,7 @@ namespace LibraryDueDateDay1.Controllers
             {
                 try
                 {
-                    Book createdBook = CreateBook(int.Parse(id), title, author, DateTime.Parse(publicationDate), DateTime.Parse(checkedOutDate));
+                    Book createdBook = CreateBook(id, title, author, publicationDate, checkedOutDate);
                     ViewBag.addMessage = $"You have successfully checked out {createdBook.Title} until {createdBook.DueDate}.";
                 }
                 catch (Exception e)
