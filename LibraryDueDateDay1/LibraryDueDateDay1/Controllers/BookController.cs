@@ -37,7 +37,7 @@ namespace LibraryDueDateDay1.Controllers
 
         public IActionResult Details(string id, string op)
         {
-            if(id == null || Books.Any(x => x.ID == int.Parse(id.Trim())) == false)
+            if(string.IsNullOrEmpty(id.Trim())|| string.IsNullOrWhiteSpace(id.Trim()) || Books.Any(x => x.ID == int.Parse(id.Trim())) == false)
             {
                 ViewBag.errorMessage = "No book selected.";
             }
