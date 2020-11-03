@@ -57,7 +57,25 @@ namespace LibraryDueDateDay1.Controllers
             }   
             return View();
         }
-        
+
+        public IActionResult Extend(string id)
+        {
+            ExtendDueDateForBookByID(id);
+            return RedirectToAction("Details", new Dictionary<string, string>() { { "id", id } });
+        }
+
+        public IActionResult Return(string id)
+        {
+            ReturnBookByID(id);
+            return RedirectToAction("Details", new Dictionary<string, string>() { { "id", id } });
+        }
+
+        public IActionResult Delete(string id)
+        {
+            DeleteBookByID(id);
+            return RedirectToAction("List");
+        }
+
         public Book CreateBook(string id, string title, string author, string publicationDate, string checkedOutDate)
         {
             int parsedID = int.Parse(id);
