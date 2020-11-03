@@ -97,7 +97,7 @@ namespace LibraryDueDateDay1.Controllers
             GetBookByID(id).ReturnedDate = DateTime.Now;
         }
 
-        public void DeleteBookByID(int id)
+        public void DeleteBookByID(string id)
         {
             Books.Remove(GetBookByID(id));
         }
