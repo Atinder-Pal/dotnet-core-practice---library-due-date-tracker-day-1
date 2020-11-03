@@ -17,15 +17,18 @@ namespace LibraryDueDateDay1.Controllers
 
         public IActionResult Create(string id, string title, string author, string publicationDate, string checkedOutDate)
         {
-            try
+            if(id !=null || title != null || author != null || publicationDate != null || checkedOutDate != null)
             {
-                Book createdBook = CreateBook(int.Parse(id), title, author, DateTime.Parse(publicationDate), DateTime.Parse(checkedOutDate));
-                ViewBag.addMessage = $"You have successfully checked out {createdBook.Title} until {createdBook.DueDate}.";
-            }
-            catch(Exception e)
-            {
-                ViewBag.addMessage = $"Unable to check out book: {e.Message}";
-            }           
+                try
+                {
+                    Book createdBook = CreateBook(int.Parse(id), title, author, DateTime.Parse(publicationDate), DateTime.Parse(checkedOutDate));
+                    ViewBag.addMessage = $"You have successfully checked out {createdBook.Title} until {createdBook.DueDate}.";
+                }
+                catch (Exception e)
+                {
+                    ViewBag.addMessage = $"Unable to check out book: {e.Message}";
+                }
+            }                        
             return View();
         }
 
