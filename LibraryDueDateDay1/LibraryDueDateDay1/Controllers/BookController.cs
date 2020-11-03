@@ -87,9 +87,9 @@ namespace LibraryDueDateDay1.Controllers
         {
             return Books.Where(x => x.ID == int.Parse(id)).Single();
         }
-        public void ExtendDueDateForBookByID(int id)
+        public void ExtendDueDateForBookByID(string id)
         {
-            GetBookByID(id).DueDate = DateTime.Now.AddDays(7);
+            GetBookByID(id).DueDate = GetBookByID(id).DueDate.AddDays(7);
         }
 
         public void ReturnBookByID(int id)
