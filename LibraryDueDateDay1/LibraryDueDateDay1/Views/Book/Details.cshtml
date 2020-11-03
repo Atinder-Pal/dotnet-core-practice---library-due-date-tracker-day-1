@@ -4,16 +4,23 @@
 }
 
 <h1>Details</h1>
-@if(ViewBag.bookDetails != null)
+@if (ViewBag.bookDetails != null)
 {
     <p>
-        "You checked out @(ViewBag.bookDetails.Title) on @(ViewBag.bookDetails.CheckedOutDate), and the due date is @(ViewBag.bookDetails.DueDate)."
+        "You checked out @(ViewBag.bookDetails.Title) on @(ViewBag.bookDetails.CheckedOutDate.ToShortDateString()), and the due date is @(ViewBag.bookDetails.DueDate.ToShortDateString())."
     </p>
-    @Html.ActionLink("Extend Due Date", "Details", "Book", new { id = ViewBag.bookDetails.ID, op = "extend" }) <br/>
-    @Html.ActionLink("Return Book", "Details", "Book", new { id = ViewBag.bookDetails.ID, op = "return" }) <br />
-    @Html.ActionLink("Delete Book", "Details", "Book", new { id = ViewBag.bookDetails.ID, op = "delete" }) <br />
+    <p>
+        "Returned date is: @((ViewBag.bookDetails.ReturnedDate == null ? "Not Returned" : ((DateTime)ViewBag.bookDetails.ReturnedDate).ToLongDateString()))."
+    </p>
+    
+    <br />
+    <a class="btn btn-success" href="/Book/Return?id=@(ViewBag.bookDetails.ID)">Return Book</a>
+
+    <a class="btn btn-primary" href="/Book/Extend?id=@(ViewBag.bookDetails.ID)">Extend Due Date</a>
+
+    <a class="btn btn-danger" href="/Book/Delete?id=@(ViewBag.bookDetails.ID)">Delete Book</a>
 }
-@if(ViewBag.errorMessage != null)
+@if (ViewBag.errorMessage != null)
 {
     @(ViewBag.errorMessage)
 }
