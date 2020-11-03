@@ -38,7 +38,7 @@ namespace LibraryDueDateDay1.Controllers
             return View();
         }
 
-        public IActionResult Details(string id, string op)
+        public IActionResult Details(string id)
         {
             if(string.IsNullOrEmpty(id.Trim())|| string.IsNullOrWhiteSpace(id.Trim()) || Books.Any(x => x.ID == int.Parse(id.Trim())) == false)
             {
@@ -46,25 +46,14 @@ namespace LibraryDueDateDay1.Controllers
             }
             else
             {
-                if(id != null && op == "extend")
+                try
                 {
-                    ExtendDueDateForBookByID(int.Parse(id));
+                    ViewBag.bookDetails = GetBookByID(id);
                 }
-                if (id != null && op == "return")
+                catch
                 {
-                    ReturnBookByID(int.Parse(id));
-                }
-                if (id != null && op == "delete")
-                {
-                    DeleteBookByID(int.Parse(id));
-                }
 
-                ViewBag.bookDetails = GetBookByID(int.Parse(id.Trim()));
-                if(ViewBag.bookDetails == null)
-                {
-                    ViewBag.errorMessage = "No book selected.";                    
-                }
-                    
+                }                                  
             }   
             return View();
         }
