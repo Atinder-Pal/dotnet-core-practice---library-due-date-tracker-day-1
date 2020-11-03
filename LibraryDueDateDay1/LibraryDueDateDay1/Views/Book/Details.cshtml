@@ -9,9 +9,9 @@
     <p>
         "You checked out @(ViewBag.bookDetails.Title) on @(ViewBag.bookDetails.CheckedOutDate), and the due date is @(ViewBag.bookDetails.DueDate)."
     </p>
-    @Html.ActionLink("Extend Due Date", "Details", "Book", new { id = ViewBag.bookDetails.ID, op = "extend" })
-    @Html.ActionLink("Return Book", "Details", "Book", new { id = ViewBag.bookDetails.ID, op = "return" })
-    @Html.ActionLink("Delete Book", "Details", "Book", new { id = ViewBag.bookDetails.ID, op = "delete" })
+    @Html.ActionLink("Extend Due Date", "Details", "Book", new { id = ViewBag.bookDetails.ID, op = "extend" }) <br/>
+    @Html.ActionLink("Return Book", "Details", "Book", new { id = ViewBag.bookDetails.ID, op = "return" }) <br />
+    @Html.ActionLink("Delete Book", "Details", "Book", new { id = ViewBag.bookDetails.ID, op = "delete" }) <br />
 }
 @if(ViewBag.errorMessage != null)
 {
