@@ -59,7 +59,7 @@ namespace LibraryDueDateDay1.Controllers
                     DeleteBookByID(int.Parse(id));
                 }
 
-                ViewBag.bookDetails = GetBookById(int.Parse(id.Trim()));
+                ViewBag.bookDetails = GetBookByID(int.Parse(id.Trim()));
                 if(ViewBag.bookDetails == null)
                 {
                     ViewBag.errorMessage = "No book selected.";                    
@@ -83,23 +83,23 @@ namespace LibraryDueDateDay1.Controllers
                 throw new Exception("ID already exists. Try adding it with a new ID");
             }            
         }
-        public Book GetBookById(int id)            
+        public Book GetBookByID(string id)            
         {
-            return Books.Where(x => x.ID == id).SingleOrDefault();
+            return Books.Where(x => x.ID == int.Parse(id)).Single();
         }
         public void ExtendDueDateForBookByID(int id)
         {
-            GetBookById(id).DueDate = DateTime.Now.AddDays(7);
+            GetBookByID(id).DueDate = DateTime.Now.AddDays(7);
         }
 
         public void ReturnBookByID(int id)
         {
-            GetBookById(id).ReturnedDate = DateTime.Now;
+            GetBookByID(id).ReturnedDate = DateTime.Now;
         }
 
         public void DeleteBookByID(int id)
         {
-            Books.Remove(GetBookById(id));
+            Books.Remove(GetBookByID(id));
         }
     }
 }
